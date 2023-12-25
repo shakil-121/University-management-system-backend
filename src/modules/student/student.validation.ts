@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 const genderValidationSchema = z.object({
   fatherName: z.string(),
@@ -10,36 +10,43 @@ const genderValidationSchema = z.object({
 });
 
 const LocalGuardianValidationSchema = z.object({
-  name: z.string({ required_error: "Name is required",
-  invalid_type_error: "Name must be a string",}),
+  name: z.string({
+    required_error: 'Name is required',
+    invalid_type_error: 'Name must be a string',
+  }),
   occupation: z.string(),
   contactNo: z.string(),
   address: z.string(),
 });
 
 const userValidationSchema = z.object({
-  firstName: z.string().max(20,{message:"First name is required"}),
+  firstName: z.string().max(20, { message: 'First name is required' }),
   middleName: z.string().max(15).optional(),
   lastName: z.string().max(20),
 });
 
-const studentvalidationSchema = z.object({
-  id: z.string({required_error:"Student ID is required"}),
-  password: z.string({required_error:"Password is required"}),
-  name: userValidationSchema,
-  gender: z.enum(['male', 'female']),
-  dateOfBirth: z.string().optional(),
-  email: z.string().email(),
-  contactNo: z.string(),
-  emergencyContactNo: z.string(),
-  bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']).optional(),
-  permanentAddress: z.string(),
-  presentAddress: z.string(),
-  guardian: genderValidationSchema,
-  localGuardian: LocalGuardianValidationSchema,
-  profileImg: z.string().optional(),
-  isActive: z.enum(['active', 'blocked']).default('active'), 
-  isDeleted:z.boolean()
-}); 
+const CreateStudentvalidationSchema = z.object({
+  body: z.object({
+    password: z.string({ required_error: 'Password is required' }),
+    student: z.object({
+      name: userValidationSchema,
+      gender: z.enum(['male', 'female']),
+      dateOfBirth: z.string().optional(),
+      email: z.string().email(),
+      contactNo: z.string(),
+      emergencyContactNo: z.string(),
+      bloodGroup: z
+        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+        .optional(),
+      permanentAddress: z.string(),
+      presentAddress: z.string(),
+      guardian: genderValidationSchema,
+      localGuardian: LocalGuardianValidationSchema,
+      profileImg: z.string().optional(),
+    }),
+  }),
+});
 
-export default studentvalidationSchema; 
+export const StudentvalidationSchema = {
+  CreateStudentvalidationSchema,
+};
