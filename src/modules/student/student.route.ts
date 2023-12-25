@@ -4,10 +4,10 @@ import { studentControllers } from './student.controller';
 const router = express.Router();
 
 //this will call controller
-router.post('/create-student', studentControllers.createStudent);
-
 router.get('/', studentControllers.getAllStudentData);
 
 router.get('/:studentID', studentControllers.getSingleStudentData);
+
+router.delete('/:studentID', studentControllers.DeleteStudentData);
 
 export const studentRouters = router;
