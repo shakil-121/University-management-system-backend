@@ -91,6 +91,14 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   presentAddress: { type: String },
   guardian: genderSchema,
   localGuardian: LocalGuardianSchema,
+  admissionSemester:{
+    type:Schema.Types.ObjectId, 
+    ref:'AcademicSemester'
+  },
+  academicDepartment: {
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicDepartment',
+  },
   profileImg: { type: String },
   isDeleted:{
     type:Boolean, 
@@ -124,7 +132,7 @@ studentSchema.statics.isUserExist=async function (id:string){
 
 //   return existingUser;
 // }
-
+ 
 //create model
 
 export const Student = model<TStudent, StudentModel>('Student', studentSchema);

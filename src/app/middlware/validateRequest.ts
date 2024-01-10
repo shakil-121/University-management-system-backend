@@ -7,11 +7,11 @@ const ValidateRequest=(Schema:AnyZodObject)=>{
         try{
             console.log('testing now....');
        //   const ZodDataValidation = studentvalidationSchema.parse(studentData);
-           Schema.parseAsync({
+            await Schema.parseAsync({
             body:req.body
            }) 
            next()
-
+           console.log('Validation complete....');
         }catch(err){
             next(err);
         }

@@ -46,8 +46,30 @@ const getSingleStudentData = catchAsync(async (req, res) => {
  
 })
 
+
+const updateStudentData = catchAsync(async (req, res) => {
+  
+  const { studentID } = req.params;
+  const { student } = req.body;
+  const result = await studentServices.updateStudent(studentID, student);
+
+  //  if (!result) {
+  //   return res.status(404).json({
+  //     success: false,
+  //     message: 'No data found for the provided studentID',
+  //   });
+  // }
+  res.status(200).json({
+    success: true,
+    message: 'Student is update successfully',
+    data: result,
+  }); 
+ 
+})
+
 export const studentControllers = {
   getAllStudentData,
   getSingleStudentData,
+  updateStudentData,
   DeleteStudentData
 };
